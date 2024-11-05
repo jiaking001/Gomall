@@ -3,10 +3,10 @@
 package main
 
 import (
+	"Gomall/app/frontend/biz/router"
 	"context"
 	"time"
 
-	"Gomall/app/frontend/biz/router"
 	"Gomall/app/frontend/conf"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
@@ -36,9 +36,12 @@ func main() {
 		ctx.JSON(consts.StatusOK, utils.H{"ping": "pong"})
 	})
 
+	router.GeneratedRegister(h)
+
 	// 指定查找的模板文件
 	h.LoadHTMLGlob("template/*")
-	router.GeneratedRegister(h)
+	// 加载静态目录
+	h.Static("/static", "./")
 
 	h.Spin()
 }
