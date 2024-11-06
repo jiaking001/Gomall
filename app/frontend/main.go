@@ -5,6 +5,8 @@ package main
 import (
 	"Gomall/app/frontend/biz/router"
 	"context"
+	"github.com/hertz-contrib/sessions"
+	"github.com/hertz-contrib/sessions/redis"
 	"time"
 
 	"Gomall/app/frontend/conf"
@@ -43,10 +45,17 @@ func main() {
 	// 加载静态目录
 	h.Static("/static", "./")
 
+	// 登录界面
+	h.GET("/sign-in", func(c context.Context, ctx *app.RequestContext) {
+		ctx.HTML(consts.StatusOK, "sign-in", utils.H{"Title": "Sign In"})
+	})
+
 	h.Spin()
 }
 
 func registerMiddleware(h *server.Hertz) {
+	store, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+	h.Use(sessions.New("cloudwego-shop", store))
 	// log
 	logger := hertzlogrus.NewLogger()
 	hlog.SetLogger(logger)

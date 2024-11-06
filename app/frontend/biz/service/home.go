@@ -1,9 +1,9 @@
 package service
 
 import (
+	"Gomall/app/frontend/hertz_gen/frontend/common"
 	"context"
 
-	home "Gomall/app/frontend/hertz_gen/frontend/home"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -16,7 +16,7 @@ func NewHomeService(Context context.Context, RequestContext *app.RequestContext)
 	return &HomeService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *HomeService) Run(req *home.Empty) (map[string]any, error) {
+func (h *HomeService) Run(req *common.Empty) (map[string]any, error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
