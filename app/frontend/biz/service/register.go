@@ -26,6 +26,9 @@ func (h *RegisterService) Run(req *auth.Register) (resp *common.Empty, err error
 	// TODO USER SVC API
 	session := sessions.Default(h.RequestContext)
 	session.Set("user_id", 1)
-	_ = session.Save()
+	err = session.Save()
+	if err != nil {
+		return nil, err
+	}
 	return
 }

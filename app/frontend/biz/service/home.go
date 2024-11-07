@@ -23,12 +23,14 @@ func (h *HomeService) Run(req *common.Empty) (map[string]any, error) {
 	//}()
 	var resp = make(map[string]any)
 	items := []map[string]any{
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
-		{"Name": "T-shirt", "Price": 100, "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
 	}
 	resp["Title"] = "Hot Sales"
 	resp["Items"] = items

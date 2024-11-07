@@ -5,7 +5,6 @@ import (
 	"github.com/hertz-contrib/sessions"
 
 	auth "Gomall/app/frontend/hertz_gen/frontend/auth"
-	common "Gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -18,7 +17,7 @@ func NewLoginService(Context context.Context, RequestContext *app.RequestContext
 	return &LoginService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *LoginService) Run(req *auth.LoginReq) (resp *common.Empty, err error) {
+func (h *LoginService) Run(req *auth.LoginReq) (redirect string, err error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
@@ -27,6 +26,13 @@ func (h *LoginService) Run(req *auth.LoginReq) (resp *common.Empty, err error) {
 
 	session := sessions.Default(h.RequestContext)
 	session.Set("user_id", 1)
-	_ = session.Save()
+	err = session.Save()
+	if err != nil {
+		return "", err
+	}
+	redirect = "/"
+	if req.Next != "" && req.Next != "http://localhost:8080/sign-up" {
+		redirect = req.Next
+	}
 	return
 }

@@ -4,6 +4,7 @@ package main
 
 import (
 	"Gomall/app/frontend/biz/router"
+	"Gomall/app/frontend/middleware"
 	"context"
 	"github.com/hertz-contrib/sessions"
 	"github.com/hertz-contrib/sessions/redis"
@@ -50,7 +51,11 @@ func main() {
 
 	// 登录界面
 	h.GET("/sign-in", func(c context.Context, ctx *app.RequestContext) {
-		ctx.HTML(consts.StatusOK, "sign-in", utils.H{"Title": "Sign In"})
+		data := utils.H{
+			"Title": "Sign In",
+			"Next":  ctx.Request.Header.Get("Referer"),
+		}
+		ctx.HTML(consts.StatusOK, "sign-in", data)
 	})
 	// 注册功能
 	h.GET("/sign-up", func(c context.Context, ctx *app.RequestContext) {
@@ -101,4 +106,6 @@ func registerMiddleware(h *server.Hertz) {
 
 	// cores
 	h.Use(cors.Default())
+
+	middleware.Register(h)
 }
