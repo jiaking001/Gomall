@@ -41,12 +41,22 @@
               <div class="ms-3">
                 <i class="fa fa-shopping-cart fa-xl" aria-hidden="true"></i>
               </div>
-              <div class="ms-3">
-               <i class="fa-solid fa-user fa-xl"></i>
+              {{ if .user_id }}
+              <div class="dropdown">
+                <div class="ms-3 dropdown-toggle" data-bs-toggle="dropdown">
+                 <i class="fa-solid fa-user fa-xl"></i>
+                 <span>Wecunge</span>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#">Order Center</a></li>
+                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
               </div>
+              {{ else }}
               <div class="ms-3">
                 <a type="button" class="btn btn-primary" href="/sign-in">Sign</a>
               </div>
+              {{ end }}
             </div>
           </div>
         </nav>

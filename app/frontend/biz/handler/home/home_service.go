@@ -28,6 +28,6 @@ func Home(ctx context.Context, c *app.RequestContext) {
 	}
 
 	// 加载特定的模板文件
-	c.HTML(consts.StatusOK, "home", resp)
+	c.HTML(consts.StatusOK, "home", utils.WarpResponse(ctx, c, resp))
 	//utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
 }

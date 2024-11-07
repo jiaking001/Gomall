@@ -9,11 +9,20 @@ import "frontend/common.proto";
 
 message LoginReq {
   string email = 1 [(api.form)="email"];
-  string password = 2 [(api.form)="name"];
+  string password = 2 [(api.form)="password"];
+}
+
+message Register {
+  string email = 1 [(api.form)="email"];
+  string password = 2 [(api.form)="password"];
+  string password_confirm = 3 [(api.form)="password_confirm"];
 }
 
 service AuthService {
   rpc login(LoginReq) returns(common.Empty) {
     option (api.post) = "/auth/login";
+  }
+  rpc register(Register) returns(common.Empty) {
+    option (api.post) = "/auth/register";
   }
 }
