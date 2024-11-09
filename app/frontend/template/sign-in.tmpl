@@ -1,5 +1,5 @@
 {{define "sign-in"}}
-{{template "header"}}
+{{template "header" .}}
 <div class="row justify-content-center">
 <div class="col-4">
   <form method="post" action="/auth/login?next={{ .Next }}">
@@ -18,5 +18,5 @@
     </form>
   </div>
 </div>
-{{template "footer"}}
+{{template "footer" .}}
 {{end}}

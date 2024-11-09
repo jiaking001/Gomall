@@ -1,6 +1,8 @@
 package service
 
 import (
+	"Gomall/app/frontend/infra/rpc"
+	"Gomall/rpc_gen/kitex_gen/user"
 	"context"
 	"github.com/hertz-contrib/sessions"
 
@@ -24,8 +26,16 @@ func (h *RegisterService) Run(req *auth.Register) (resp *common.Empty, err error
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
 	// TODO USER SVC API
+	userResp, err := rpc.UserClient.Register(h.Context, &user.RegisterReq{
+		Email:           req.Email,
+		Password:        req.Password,
+		PasswordConfirm: req.PasswordConfirm,
+	})
+	if err != nil {
+		return nil, err
+	}
 	session := sessions.Default(h.RequestContext)
-	session.Set("user_id", 1)
+	session.Set("user_id", userResp.UserId)
 	err = session.Save()
 	if err != nil {
 		return nil, err

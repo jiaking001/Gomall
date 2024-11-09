@@ -3,7 +3,7 @@
 package router
 
 import (
-	auth "Gomall/app/frontend/biz/router/auth"
+	"Gomall/app/frontend/biz/router/auth"
 	home "Gomall/app/frontend/biz/router/home"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

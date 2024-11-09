@@ -4,6 +4,7 @@ package main
 
 import (
 	"Gomall/app/frontend/biz/router"
+	"Gomall/app/frontend/infra/rpc"
 	"Gomall/app/frontend/middleware"
 	"context"
 	"github.com/hertz-contrib/sessions"
@@ -32,6 +33,7 @@ func main() {
 	_ = godotenv.Load()
 	// init dal
 	// dal.Init()
+	rpc.Init()
 	address := conf.GetConf().Hertz.Address
 	h := server.New(server.WithHostPorts(address))
 
@@ -49,11 +51,15 @@ func main() {
 	// 加载静态目录
 	h.Static("/static", "./")
 
+	// 关于界面
+	h.GET("/about", func(c context.Context, ctx *app.RequestContext) {
+		ctx.HTML(consts.StatusOK, "about", utils.H{"Title": "About"})
+	})
 	// 登录界面
 	h.GET("/sign-in", func(c context.Context, ctx *app.RequestContext) {
 		data := utils.H{
 			"Title": "Sign In",
-			"Next":  ctx.Request.Header.Get("Referer"),
+			"Next":  ctx.Query("next"),
 		}
 		ctx.HTML(consts.StatusOK, "sign-in", data)
 	})
