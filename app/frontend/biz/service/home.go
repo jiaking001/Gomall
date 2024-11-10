@@ -2,7 +2,10 @@ package service
 
 import (
 	"Gomall/app/frontend/hertz_gen/frontend/common"
+	"Gomall/app/frontend/infra/rpc"
+	"Gomall/rpc_gen/kitex_gen/product"
 	"context"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 
 	"github.com/cloudwego/hertz/pkg/app"
 )
@@ -16,23 +19,17 @@ func NewHomeService(Context context.Context, RequestContext *app.RequestContext)
 	return &HomeService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *HomeService) Run(req *common.Empty) (map[string]any, error) {
+func (h *HomeService) Run(req *common.Empty) (res map[string]any, err error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	var resp = make(map[string]any)
-	items := []map[string]any{
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
-		{"Name": "兄弟，你好香", "Price": "100$", "Picture": "/static/image/001.jpg"},
+	products, err := rpc.ProductClient.ListProducts(h.Context, &product.ListProductReq{})
+	if err != nil {
+		return nil, err
 	}
-	resp["Title"] = "Hot Sales"
-	resp["Items"] = items
-	return resp, nil
+	return utils.H{
+		"title": "Hot sale",
+		"items": products.Products,
+	}, nil
 }

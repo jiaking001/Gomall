@@ -1,13 +1,16 @@
 {{define "home"}}
 {{template "header" .}}
       <div class="row">
-         {{range .Items}}
-          <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 p-4 border-0">
+         {{range .items}}
+          <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 p-4 border-0 shadow p-3 mb-5 bg-body-tertiary rounded">
+          <a href="/product?id={{ .Id }}" class="btn">
             <img src={{.Picture}} class="card-img-top" alt="...">
-            <div class="card-body shadow p-3 mb-5 bg-body-tertiary rounded">
+            <div class="card-body">
               <p class="card-text">{{.Name}}</p>
-              <h5 class="card-text">{{.Price}}</h5>
+              <h5 class="card-text">{{.Price}} $</h5>
+              <h7 class="card-text">{{.Description}}</h7>
             </div>
+          </a>
           </div>
          {{end}}
       </div>
