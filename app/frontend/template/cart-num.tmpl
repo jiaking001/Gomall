@@ -1,0 +1,13 @@
+{{define "cart-num"}}
+    <div class="ms-3">
+    <a href="/cart" class="btn position-relative">
+        <i class="fa fa-shopping-cart fa-xl">
+        </i>
+        {{ if $.cart_num}}
+         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ $.cart_num }}
+         </span>
+        {{ end }}
+    </a>
+   </div>
+{{end}}

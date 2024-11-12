@@ -12,7 +12,6 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-            <img class="navbar-brand" href="#" src="/static/image/001.jpg" alt="CloudWeGo"/ style="height: 1cm;">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,14 +37,12 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{ .q }}" name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
-              <div class="ms-3">
-                <i class="fa fa-shopping-cart fa-xl" aria-hidden="true"></i>
-              </div>
+              {{ template "cart-num" .}}
               {{ if .user_id }}
               <div class="dropdown">
                 <div class="ms-3 dropdown-toggle" data-bs-toggle="dropdown">
                  <i class="fa-solid fa-user fa-xl"></i>
-                 <span>Wecunge</span>
+                 <span> {{$.email}} </span>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="#">Order Center</a></li>

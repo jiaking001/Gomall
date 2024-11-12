@@ -27,7 +27,7 @@ func GetProduct(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	c.HTML(consts.StatusOK, "product", resp)
+	c.HTML(consts.StatusOK, "product", utils.WarpResponse(ctx, c, resp))
 	//utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
 }
 

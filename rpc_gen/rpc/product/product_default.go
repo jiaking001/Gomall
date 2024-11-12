@@ -1,34 +1,34 @@
 package product
 
 import (
-	product "Gomall/rpc_gen/kitex_gen/product"
+	cart "Gomall/rpc_gen/kitex_gen/cart"
 	"context"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
-func ListProducts(ctx context.Context, req *product.ListProductReq, callOptions ...callopt.Option) (resp *product.ListProductResp, err error) {
-	resp, err = defaultClient.ListProducts(ctx, req, callOptions...)
+func AddItem(ctx context.Context, req *cart.AddItemReq, callOptions ...callopt.Option) (resp *cart.AddItemResp, err error) {
+	resp, err = defaultClient.AddItem(ctx, req, callOptions...)
 	if err != nil {
-		klog.CtxErrorf(ctx, "ListProducts call failed,err =%+v", err)
+		klog.CtxErrorf(ctx, "AddItem call failed,err =%+v", err)
 		return nil, err
 	}
 	return resp, nil
 }
 
-func GetProduct(ctx context.Context, req *product.GetProductReq, callOptions ...callopt.Option) (resp *product.GetProductResp, err error) {
-	resp, err = defaultClient.GetProduct(ctx, req, callOptions...)
+func GetCart(ctx context.Context, req *cart.GetCartReq, callOptions ...callopt.Option) (resp *cart.GetCartResp, err error) {
+	resp, err = defaultClient.GetCart(ctx, req, callOptions...)
 	if err != nil {
-		klog.CtxErrorf(ctx, "GetProduct call failed,err =%+v", err)
+		klog.CtxErrorf(ctx, "GetCart call failed,err =%+v", err)
 		return nil, err
 	}
 	return resp, nil
 }
 
-func SearchProducts(ctx context.Context, req *product.SearchProductsReq, callOptions ...callopt.Option) (resp *product.SearchProductsResp, err error) {
-	resp, err = defaultClient.SearchProducts(ctx, req, callOptions...)
+func EmptyCart(ctx context.Context, req *cart.EmptyCartReq, callOptions ...callopt.Option) (resp *cart.EmptyCartResp, err error) {
+	resp, err = defaultClient.EmptyCart(ctx, req, callOptions...)
 	if err != nil {
-		klog.CtxErrorf(ctx, "SearchProducts call failed,err =%+v", err)
+		klog.CtxErrorf(ctx, "EmptyCart call failed,err =%+v", err)
 		return nil, err
 	}
 	return resp, nil

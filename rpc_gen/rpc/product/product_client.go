@@ -1,24 +1,24 @@
 package product
 
 import (
-	product "Gomall/rpc_gen/kitex_gen/product"
+	cart "Gomall/rpc_gen/kitex_gen/cart"
 	"context"
 
-	"Gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"Gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )
 
 type RPCClient interface {
-	KitexClient() productcatalogservice.Client
+	KitexClient() cartservice.Client
 	Service() string
-	ListProducts(ctx context.Context, Req *product.ListProductReq, callOptions ...callopt.Option) (r *product.ListProductResp, err error)
-	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
-	SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error)
+	AddItem(ctx context.Context, Req *cart.AddItemReq, callOptions ...callopt.Option) (r *cart.AddItemResp, err error)
+	GetCart(ctx context.Context, Req *cart.GetCartReq, callOptions ...callopt.Option) (r *cart.GetCartResp, err error)
+	EmptyCart(ctx context.Context, Req *cart.EmptyCartReq, callOptions ...callopt.Option) (r *cart.EmptyCartResp, err error)
 }
 
 func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
-	kitexClient, err := productcatalogservice.NewClient(dstService, opts...)
+	kitexClient, err := cartservice.NewClient(dstService, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -32,25 +32,25 @@ func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
 
 type clientImpl struct {
 	service     string
-	kitexClient productcatalogservice.Client
+	kitexClient cartservice.Client
 }
 
 func (c *clientImpl) Service() string {
 	return c.service
 }
 
-func (c *clientImpl) KitexClient() productcatalogservice.Client {
+func (c *clientImpl) KitexClient() cartservice.Client {
 	return c.kitexClient
 }
 
-func (c *clientImpl) ListProducts(ctx context.Context, Req *product.ListProductReq, callOptions ...callopt.Option) (r *product.ListProductResp, err error) {
-	return c.kitexClient.ListProducts(ctx, Req, callOptions...)
+func (c *clientImpl) AddItem(ctx context.Context, Req *cart.AddItemReq, callOptions ...callopt.Option) (r *cart.AddItemResp, err error) {
+	return c.kitexClient.AddItem(ctx, Req, callOptions...)
 }
 
-func (c *clientImpl) GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error) {
-	return c.kitexClient.GetProduct(ctx, Req, callOptions...)
+func (c *clientImpl) GetCart(ctx context.Context, Req *cart.GetCartReq, callOptions ...callopt.Option) (r *cart.GetCartResp, err error) {
+	return c.kitexClient.GetCart(ctx, Req, callOptions...)
 }
 
-func (c *clientImpl) SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error) {
-	return c.kitexClient.SearchProducts(ctx, Req, callOptions...)
+func (c *clientImpl) EmptyCart(ctx context.Context, Req *cart.EmptyCartReq, callOptions ...callopt.Option) (r *cart.EmptyCartResp, err error) {
+	return c.kitexClient.EmptyCart(ctx, Req, callOptions...)
 }

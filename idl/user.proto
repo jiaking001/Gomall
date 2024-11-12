@@ -23,7 +23,20 @@ message LoginResp {
   int32 user_id = 1;
 }
 
+message GetUserByUserIdReq {
+  uint32 user_id = 1;
+}
+
+message User {
+  string email = 1;
+}
+
+message GetUserByUserIdResp {
+  User user = 1;
+}
+
 service UserService {
   rpc Register (RegisterReq) returns (RegisterResp) {}
   rpc Login (LoginReq) returns (LoginResp) {}
+  rpc GetUserByUserId (GetUserByUserIdReq) returns (GetUserByUserIdResp) {}
 }

@@ -5,6 +5,7 @@ import (
 	"Gomall/app/product/conf"
 	"github.com/joho/godotenv"
 	consul "github.com/kitex-contrib/registry-consul"
+	"log"
 	"net"
 	"time"
 
@@ -39,6 +40,9 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServiceAddr(addr))
 
 	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{

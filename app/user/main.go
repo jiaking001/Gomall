@@ -47,7 +47,7 @@ func kitexInit() (opts []server.Option) {
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
 
-	r, err := consul.NewConsulRegister("127.0.0.1:8500")
+	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
 	if err != nil {
 		log.Fatal(err)
 	}

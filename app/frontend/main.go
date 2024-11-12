@@ -13,6 +13,7 @@ import (
 	"os"
 	"time"
 
+	frontendUtis "Gomall/app/frontend/biz/utils"
 	"Gomall/app/frontend/conf"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
@@ -53,7 +54,8 @@ func main() {
 
 	// 关于界面
 	h.GET("/about", func(c context.Context, ctx *app.RequestContext) {
-		ctx.HTML(consts.StatusOK, "about", utils.H{"Title": "About"})
+		resp := make(map[string]any)
+		ctx.HTML(consts.StatusOK, "about", frontendUtis.WarpResponse(c, ctx, resp))
 	})
 	// 登录界面
 	h.GET("/sign-in", func(c context.Context, ctx *app.RequestContext) {

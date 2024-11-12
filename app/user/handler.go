@@ -22,3 +22,10 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.LoginReq) (resp *
 
 	return resp, err
 }
+
+// GetUserByUserId implements the UserServiceImpl interface.
+func (s *UserServiceImpl) GetUserByUserId(ctx context.Context, req *user.GetUserByUserIdReq) (resp *user.GetUserByUserIdResp, err error) {
+	resp, err = service.NewGetUserByIdService(ctx).Run(req)
+
+	return resp, err
+}
