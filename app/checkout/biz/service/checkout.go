@@ -1,15 +1,19 @@
 package service
 
 import (
+	"Gomall/app/checkout/infra/mq"
 	"Gomall/app/checkout/infra/rpc"
 	"Gomall/rpc_gen/kitex_gen/cart"
 	checkout "Gomall/rpc_gen/kitex_gen/checkout"
+	"Gomall/rpc_gen/kitex_gen/email"
 	"Gomall/rpc_gen/kitex_gen/order"
 	"Gomall/rpc_gen/kitex_gen/payment"
 	"Gomall/rpc_gen/kitex_gen/product"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/nats-io/nats.go"
+	"google.golang.org/protobuf/proto"
 )
 
 type CheckoutService struct {
@@ -105,6 +109,18 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	if err != nil {
 		return nil, err
 	}
+
+	data, _ := proto.Marshal(&email.EmailReq{
+		From:        "from@example.com",
+		To:          req.Email,
+		ContentType: "text/plain",
+		Subject:     "You have just created an order in the CloudWeGo shop",
+		Content:     "You have just created an order in the CloudWeGo shop",
+	})
+
+	msg := &nats.Msg{Subject: "email", Data: data}
+
+	_ = mq.Nc.PublishMsg(msg)
 
 	klog.Info(paymentResult)
 

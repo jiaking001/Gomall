@@ -3,15 +3,18 @@ package rpc
 import (
 	"Gomall/app/cart/conf"
 	cartutils "Gomall/app/cart/utils"
+	"Gomall/common/clientsuite"
 	"Gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
-	consul "github.com/kitex-contrib/registry-consul"
 	"sync"
 )
 
 var (
 	ProductClient productcatalogservice.Client
 	once          sync.Once
+	ServiceName   = conf.GetConf().Kitex.Service
+	RegistryAddr  = conf.GetConf().Registry.RegistryAddress[0]
+	err           error
 )
 
 func InitClient() {
@@ -21,10 +24,12 @@ func InitClient() {
 }
 
 func iniProductClient() {
-	var opts []client.Option
-	r, err := consul.NewConsulResolver(conf.GetConf().Registry.RegistryAddress[0])
-	cartutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
+	opts := []client.Option{
+		client.WithSuite(clientsuite.CommonClientSuite{
+			CurrentServiceName: ServiceName,
+			RegistryAddr:       RegistryAddr,
+		}),
+	}
 
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	cartutils.MustHandleError(err)
