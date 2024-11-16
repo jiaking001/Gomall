@@ -4,8 +4,8 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Email          string `gorm:"type:varchar(100);unique_index"`
-	PasswordHashed string `gorm:"type:varchar(255);not null"`
+	Email          string `gorm:"types:varchar(100);unique_index"`
+	PasswordHashed string `gorm:"types:varchar(255);not null"`
 }
 
 func (User) TableName() string {

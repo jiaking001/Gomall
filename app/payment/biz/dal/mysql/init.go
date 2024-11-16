@@ -23,8 +23,13 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
-	err := DB.AutoMigrate(&model.PaymentLog{})
 	if err != nil {
 		panic(err)
+	}
+	if os.Getenv("GO_ENV") != "online" {
+		err := DB.AutoMigrate(&model.PaymentLog{})
+		if err != nil {
+			return
+		}
 	}
 }

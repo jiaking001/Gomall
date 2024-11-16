@@ -543,10 +543,10 @@ legend + * {
 }
 
 /* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
+[types="tel"],
+[types="url"],
+[types="email"],
+[types="number"] {
   direction: ltr;
 }
 */

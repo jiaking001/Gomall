@@ -29,7 +29,7 @@ func (h *AddCartItemService) Run(req *cart.AddCartItemReq) (resp *common.Empty, 
 		UserId: userId,
 		Item: &rpccart.CartItem{
 			ProductId: req.ProductId,
-			Quantity:  int32(req.ProductNum),
+			Quantity:  uint32(req.ProductNum),
 		},
 	})
 	cartResp, err := rpc.CartClient.GetCart(h.Context, &rpccart.GetCartReq{

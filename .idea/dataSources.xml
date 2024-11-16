@@ -13,7 +13,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@172.30.25.138" uuid="de4fa734-d900-44ab-9a13-df190a4bc24a">
+    <data-source source="LOCAL" name="Gomall" uuid="de4fa734-d900-44ab-9a13-df190a4bc24a">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

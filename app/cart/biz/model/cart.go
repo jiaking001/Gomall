@@ -8,9 +8,9 @@ import (
 
 type Cart struct {
 	gorm.Model
-	UserId    uint32 `gorm:"type:int(11); not null; index:idx_cart_user_id"`
-	ProductId uint32 `gorm:"type:int(11); not null;"`
-	Qty       int32  `gorm:"type:int(11); not null;"`
+	UserId    uint32 `gorm:"types:int(11); not null; index:idx_cart_user_id"`
+	ProductId uint32 `gorm:"types:int(11); not null;"`
+	Qty       int32  `gorm:"types:int(11); not null;"`
 }
 
 func (Cart) TableName() string {

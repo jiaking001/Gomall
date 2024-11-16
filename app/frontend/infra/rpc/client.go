@@ -5,6 +5,7 @@ import (
 	frontendUtils "Gomall/app/frontend/utils"
 	"Gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"Gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"Gomall/rpc_gen/kitex_gen/order/orderservice"
 	"Gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"Gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
@@ -17,6 +18,7 @@ var (
 	ProductClient  productcatalogservice.Client
 	CartClient     cartservice.Client
 	CheckoutClient checkoutservice.Client
+	OrderClient    orderservice.Client
 	once           sync.Once
 )
 
@@ -26,6 +28,7 @@ func Init() {
 		iniProductClient()
 		iniCartClient()
 		iniCheckoutClient()
+		iniOrderClient()
 	})
 }
 
@@ -66,5 +69,15 @@ func iniCheckoutClient() {
 	opts = append(opts, client.WithResolver(r))
 
 	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
+	frontendUtils.MustHandleError(err)
+}
+
+func iniOrderClient() {
+	var opts []client.Option
+	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+	frontendUtils.MustHandleError(err)
+	opts = append(opts, client.WithResolver(r))
+
+	OrderClient, err = orderservice.NewClient("order", opts...)
 	frontendUtils.MustHandleError(err)
 }
